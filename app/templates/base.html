@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    {% if title %}
+    <title>LPU Community - {{ title }}</title>
+    {% else %}
+    <title>LPU Community</title>
+    {% endif %}
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/basecss.css') }}" rel="stylesheet">
+  </head>
+  <body>
+<!-- Navbar -->
+    <nav class="navbar navbar-light navbar-expand-md bg-primary justify-content-md-center justify-content-start">
+        <a class="navbar-brand d-md-none d-inline" href="">LPUC</a>
+        <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#profiledropdown">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="nav-link" href="#"><i class="fa fa-search mr-1"></i></a> 
+        <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="profiledropdown">
+            <ul class="navbar-nav mx-auto text-md-center text-left">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('memrec') }}">Member Info/Records</a>
+                </li>
+                <li class="nav-item my-auto">
+                    <a class="nav-link navbar-brand mx-0 d-none d-md-inline" href="{{ url_for('index') }}">LPU <img src="{{ url_for('static', filename='images/logo.jpeg') }}" height="25px" width="25px"> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('tools') }}">Tools/Resources</a> 
+                </li>
+            </ul>
+            <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+                <li class="nav-item dropdown navbar-left">
+                    <a class="nav-link dropdown-toggle" role="button" id="profiledropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profiledropdown">
+                      {% if current_user.is_anonymous %}
+                      <a class="dropdown-item" href="{{ url_for('login') }}">Log in!</a>
+                      <a class="dropdown-item" href="{{ url_for('register') }}">Sign up!</a>
+                      {% else %}
+                      <a class="dropdown-item" href="{{ url_for('user', username=current_user.username) }}">{{ current_user.username }}'s Profile</a>
+                      <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                      {% endif %}
+                    </div>
+                  </li>
+            </ul>
+        </div>
+    </nav>
+<!-- YT Carousel -->
+    <div id="ytCarousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#ytCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#ytCarousel" data-slide-to="1"></li>
+        <li data-target="#ytCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <iframe width="100%" height="250px" src="https://www.youtube.com/embed/ufVLDXw06gw"></iframe>
+        </div>
+        <div class="carousel-item">
+          <iframe width="100%" height="250px" src="https://www.youtube.com/embed/D9psax-iph4"></iframe>
+        </div>
+        <div class="carousel-item">
+          <iframe width="100%" height="250px" src="https://www.youtube.com/embed/ufVLDXw06gw"></iframe>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#ytCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#ytCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          {% block app_content %}
+          {% endblock %}
+<!-- New member scroller to go here with block memscroll -->
+          {% block memscroll %}{% endblock %}
+        </div>
+        <div class="col-6">
+          <div>{% block content %}{% endblock %}</div>
+        </div>
+        <div class="col">
+<!-- HOF Scroller to go here with block hofscroll-->
+          {% block hofscroll %}{% endblock %}
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
