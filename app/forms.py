@@ -11,7 +11,7 @@ from wtforms.validators import (
     InputRequired, DataRequired,
     Email,Length, EqualTo, Required, ValidationError)
 from flask_wtf.file import FileRequired, FileAllowed
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 from app.models import User
 
 class UserForm(FlaskForm):
