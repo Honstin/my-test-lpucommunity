@@ -1,5 +1,6 @@
 #ignore venv folder
 venv/
 __pycache__/
-*.flaskenv
-.vscode
+# Remove env files for production push, while work ongoing this can be ignored.
+#*.flaskenv
+#.vscode
