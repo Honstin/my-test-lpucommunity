@@ -7,7 +7,6 @@ from datetime import datetime
 from app import db, login
 from flask_login import UserMixin
 from hashlib import md5
-from flask_json import jsonify
 
 
 @login.user_loader
