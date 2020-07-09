@@ -22,8 +22,7 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        print(
-            f"User {form.username.data} created with email {form.email.data}")
+        print(f"User {form.username.data} created with email {form.email.data}")
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
@@ -78,8 +77,7 @@ def tools():
 @app.route('/user/<username>')
 @login_required
 def user(username):
-    user = User.query.filter_by(
-        username=username).first_or_404()
+    user = User.query.filter_by(username=username).first_or_404()
     return render_template('user.html', user=user, title='User Home')
 
 @app.before_request
