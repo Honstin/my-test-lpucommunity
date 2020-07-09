@@ -7,7 +7,7 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     # Set DB Env variables
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'app.db')
+        'postgresql:///postgres:postgres@localhost:5432/lpucommunity'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # Destination for uploaded photos and size limit.
     UPLOADED_PHOTOS_DEST = os.path.join(basedir, 'static/images')
