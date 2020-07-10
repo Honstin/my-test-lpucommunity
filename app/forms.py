@@ -44,7 +44,7 @@ class RegistrationForm(FlaskForm):
         'Email in use, please register a different e-mail.')
 
 class EditProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
+    #username = StringField('Username', validators=[DataRequired()])
     avatar = FileField('Update Profile Picture', validators=[FileAllowed(
         ['jpg', 'jpeg', 'png', 'gif'])])
     about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])

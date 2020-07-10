@@ -107,13 +107,11 @@ def edit_profile():
         if form.avatar.data:
             picture_file = save_picture(form.avatar.data)
             current_user.avatar = picture_file
-        current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         db.session.commit()
         print("Changes saved.")
-        return redirect(url_for('user', username=form.username.data))
+        return redirect(url_for('user', username=current_user.username))#)) username=form.username.data))
     elif request.method == 'GET':
-        form.username.data = current_user.username
         form.about_me.data = current_user.about_me
         print("fail")
     return render_template('edit_profile.html', title='Edit Profile', form=form)
