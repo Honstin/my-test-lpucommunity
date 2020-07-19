@@ -18,7 +18,7 @@
   </head>
   <body>
 <!-- Navbar -->
-    <nav class="navbar navbar-light navbar-expand-md bg-primary justify-content-md-center justify-content-start">
+    <nav class="navbar navbar-light navbar-expand-md justify-content-md-center justify-content-start">
         <a class="navbar-brand d-md-none d-inline" href="">LPUC</a>
         <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#profiledropdown">
             <span class="navbar-toggler-icon"></span>
@@ -27,13 +27,13 @@
         <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="profiledropdown">
             <ul class="navbar-nav mx-auto text-md-center text-left">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('memrec') }}">Member Info/Records</a>
+                    <a class="nav-link btn btn-sm btn-light" href="{{ url_for('memrec') }}">Member Info/Records</a>
                 </li>
                 <li class="nav-item my-auto">
                     <a class="nav-link navbar-brand mx-0 d-none d-md-inline" href="{{ url_for('index') }}">LPU <img src="{{ url_for('static', filename='images/logo.jpeg') }}" height="25px" width="25px"> Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('tools') }}">Tools/Resources</a> 
+                    <a class="nav-link btn btn-sm btn-light" href="{{ url_for('tools') }}">Tools/Resources</a> 
                 </li>
             </ul>
             <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
@@ -80,20 +80,20 @@
       </a>
     </div>
     <div class="container">
-      <div class="row">
-        <div class="col">
-          {% block app_content %}
-          {% endblock %}
-<!-- New member scroller to go here with block memscroll -->
-          {% block memscroll %}{% endblock %}
-        </div>
-        <div class="col-6">
-          <div>{% block content %}{% endblock %}</div>
-        </div>
-        <div class="col">
-<!-- HOF Scroller to go here with block hofscroll-->
-          {% block hofscroll %}{% endblock %}
-        </div>
+        <div class="container">
+          <div class="col">
+            {% block app_content %}
+            {% endblock %}
+  <!-- New member scroller to go here with block memscroll -->
+            {% block memscroll %}{% endblock %}
+          </div>
+          <div class="col-6">
+            <div>{% block content %}{% endblock %}</div>
+          </div>
+          <div class="col">
+  <!-- HOF Scroller to go here with block hofscroll-->
+            {% block hofscroll %}{% endblock %}
+          </div>
       </div>
     </div>
     <!-- Bootstrap core JavaScript

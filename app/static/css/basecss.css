@@ -1,6 +1,6 @@
 body {
     padding-top: 5rem;
-    background-color: brown;
+    background-color: slategray;
   }
   .starter-template {
     padding: 3rem 1.5rem;
@@ -9,4 +9,7 @@ body {
 html, body{
     margin: 0px;
     padding: 0px;
+}
+.carousel-inner img {
+  margin: auto;
 }
