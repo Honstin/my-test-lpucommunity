@@ -67,7 +67,7 @@ def tools():
         'Multipick': 'https://shop.multipick.com/en/index',
         'Southord': 'https://www.southord.com/',
         'Southern Specialties': 'https://lockpicktools.com/',
-        'UK Bump Keys': 'https://www.ukbumpkeys.com/?gclid=EAIaIQobChMI7aPlw7HS6QIVQdbACh1mNgWyEAAYASAAEgKnBPD_BwE',
+        'UK Bump Keys': 'https://www.ukbumpkeys.com/collections/lock-pick-sets',
         'Banggood (DANIU Dimple Picks)':'https://www.banggood.com/',
         'Mako Locks': 'https://makolocks.com'
     }

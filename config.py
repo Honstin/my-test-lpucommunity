@@ -23,5 +23,5 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['your-email@example.com'] """
 
-    #for logging.
+    #for logging to heroku.
     #LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
