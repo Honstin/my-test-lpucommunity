@@ -61,3 +61,5 @@ class EditProfileForm(FlaskForm):
                 raise ValidationError(
             'You cannot choose the same name as someone else, pick another name'
             )
+
+#class PostForm(FlaskForm):
