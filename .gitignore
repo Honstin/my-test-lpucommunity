@@ -1,6 +1,6 @@
 #ignore venv folder
 venv/
 .vscode
-__pycache__
-app/__pycache__
+*__pycache__
 .gitignore
+.pyc
