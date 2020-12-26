@@ -17,20 +17,23 @@ def load_user(id):
 #Admin has total control, staff has same access except cannot delete admin,
 #accounts.
 class Role(db.Model):
+    __tablename__ = 'role'
     id = db.Column(db.Integer(), primary_key=True)
     #TODO add role levels
     name = db.Column(db.String(42))
     users = db.relationship(
         'User',
-        secondary='userRole', backref=db.backref('role', lazy='dynamic'))
+        secondary='user_roles', backref=db.backref('role', lazy='dynamic'))
 
 class userRole(db.Model):
+    __tablename__ = 'user_roles'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
 
 #table for Users. Holds ID, Username, Email, Created on date.
 class User(UserMixin,db.Model):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -43,7 +46,7 @@ class User(UserMixin,db.Model):
         'Role',
         secondary='user_roles',
         cascade="all,delete",
-        backref=db.backref('users', lazy='dynamic'))
+        backref=db.backref('user', lazy='dynamic'))
     user_belts = db.relationship('UserBelt', backref='user')
     locksForSale = db.relationship('LocksForSale', backref='user')
     locksOnLoan = db.relationship('LocksOnLoan', backref='user')
@@ -69,17 +72,20 @@ class User(UserMixin,db.Model):
         return '<User {}>'.format(self.username)
 
 class UserBelt(db.Model):
+    __tablename__ = 'UserBelts'
     id = db.Column(db.Integer, primary_key=True)
     belt_name = db.Column(db.String(16), index=True)
     UsrBelt = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class LocksForSale(db.Model):
+    __tablename__ = 'LocksForSale'
     id = db.Column(db.Integer, primary_key=True)
     lockname = db.Column(db.String(64), index=True)
     ownedBy = db.Column(db.String(64), index=True)
     LfS = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class LocksOnLoan(db.Model):
+    __tablename__ = 'LocksOnLoan'
     id = db.Column(db.Integer, primary_key=True)
     lockname = db.Column(db.String(64), index=True)
     ownedBy = db.Column(db.String(64), index=True)
@@ -87,11 +93,13 @@ class LocksOnLoan(db.Model):
     LoL = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class LocksOwned(db.Model):
+    __tablename__ = 'LocksOwned'
     id = db.Column(db.Integer, primary_key=True)
     lockname = db.Column(db.String(64), index=True)
     ownedBy = db.Column(db.String(64), index=True)
 
 class ResTool(db.Model):
+    __tablename__ = 'Reccomended Tools'
     id = db.Column(db.Integer, primary_key=True)
     company = db.Column(db.String(64), index=True, unique=True)
     url = db.Column(db.String(100), index=True, primary_key=True)

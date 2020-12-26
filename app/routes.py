@@ -1,5 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
-from flask_login import current_user, login_user, logout_user, login_required
+from flask_login import current_user, login_user, logout_user, \
+    login_required
+from flask_principal import Principal, Identity, AnonymousIdentity, \
+    identity_changed
 from app import app, db
 from app.forms import UserForm, RegistrationForm, EditProfileForm
 from app.models import User
@@ -37,6 +40,8 @@ def login():
             flash("Invalid Username or Password.")
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
+        identity_changed.send(current_app._get_current_object(), \
+            identity=Identity(user.id))
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
@@ -48,6 +53,11 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
+    for key in ('identity.name', 'identity.auth_type'):
+        session.pop(key, None)
+    
+    identity_changed.send(current_app._get_current_object(), \
+         identity=AnonymousIdentity())
     return redirect(url_for('index'))
 
 @login_required
