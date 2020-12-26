@@ -6,20 +6,14 @@ from werkzeug.security import (
 from datetime import datetime
 from app import db, login
 from flask_login import UserMixin
-from hashlib import md5
-
 
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
-#base model, also controls access level (Admin/Staff/User)
-#Admin has total control, staff has same access except cannot delete admin,
-#accounts.
 class Role(db.Model):
     __tablename__ = 'role'
     id = db.Column(db.Integer(), primary_key=True)
-    #TODO add role levels
     name = db.Column(db.String(42))
     users = db.relationship(
         'User',
