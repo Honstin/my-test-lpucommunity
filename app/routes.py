@@ -5,7 +5,7 @@ from flask_principal import Principal, Identity, AnonymousIdentity, \
     identity_changed
 from app import app, db
 from app.forms import UserForm, RegistrationForm, EditProfileForm
-from app.models import User
+from app.models import User, Role
 from werkzeug.urls import url_parse
 from datetime import datetime
 import os
@@ -23,6 +23,7 @@ def register():
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
+        user.roles.append(Role(name='user'))
         db.session.add(user)
         db.session.commit()
         print(f"User {form.username.data} created with email {form.email.data}")
