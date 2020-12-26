@@ -8,14 +8,32 @@
                 <h1>User: {{ user.username }}</h1>
                 {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
                 {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+                <p>Current Belt: <strong>{{ belt }}</strong></p>
                 
                 {% if user == current_user %}
-                <p>
-                    <a href="{{ url_for('edit_profile') }}" class="btn btn-info" role="button">
-                        Edit Your Profile
-                    </a>
-                </p>
+                    <div class="container">
+                        <a href="{{ url_for('edit_profile') }}" class="btn btn-info" role="button">
+                            Edit Your Profile
+                        </a><br>
                 {% endif %}
+                {% if current_user.has_role(['admin','staff']) %}
+                        <div class="btn-group">
+                            <button class="btn btn-info" type="button">Belt Information</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">White Belt</a>
+                                <a class="dropdown-item" href="#">Yellow Belt</a>
+                                <a class="dropdown-item" href="#">Orange Belt</a>
+                                <a class="dropdown-item" href="#">Green Belt</a>
+                                <a class="dropdown-item" href="#">Blue Belt</a>
+                                <a class="dropdown-item" href="#">Purple Belt</a>
+                                <a class="dropdown-item" href="#">Brown Belt</a>
+                                <a class="dropdown-item" href="#">Red Belt</a>
+                                <a class="dropdown-item" href="#">Black Belt</a>
+                            </div>
+                        </div>
+                {% endif %}
+                    </div>
             </td>
         </tr>
     </table>

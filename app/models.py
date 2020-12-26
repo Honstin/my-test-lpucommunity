@@ -17,20 +17,33 @@ def load_user(id):
 #Admin has total control, staff has same access except cannot delete admin,
 #accounts.
 class Role(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True)
     #TODO add role levels
-    users = db.relationship('User', backref='role')
+    name = db.Column(db.String(42))
+    users = db.relationship(
+        'User',
+        secondary='userRole', backref=db.backref('role', lazy='dynamic'))
+
+class userRole(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
 
 #table for Users. Holds ID, Username, Email, Created on date.
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
-    createdOn = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    createdOn = db.Column(db.DateTime,
+    index=True, default=datetime.utcnow)
     password_hash = db.Column(db.String(256))
     about_me = db.Column(db.String(140))
     last_online = db.Column(db.DateTime, default=datetime.utcnow)
-    users_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+    roles = db.relationship(
+        'Role',
+        secondary='user_roles',
+        cascade="all,delete",
+        backref=db.backref('users', lazy='dynamic'))
     user_belts = db.relationship('UserBelt', backref='user')
     locksForSale = db.relationship('LocksForSale', backref='user')
     locksOnLoan = db.relationship('LocksOnLoan', backref='user')
@@ -48,7 +61,10 @@ class User(UserMixin,db.Model):
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
             digest, size
         )
-    
+
+    def has_role(self, role):
+        return role in self.roles
+
     def __repr__(self):
         return '<User {}>'.format(self.username)
 

@@ -78,7 +78,8 @@ def tools():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('user.html', user=user, title='User Home')
+    currentBelt = User.query.filter_by(user_belts=user_belts)
+    return render_template('user.html', user=user, title='User Home', belt=currentBelt)
 
 @app.before_request
 def before_request():
